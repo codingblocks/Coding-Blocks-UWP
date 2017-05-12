@@ -1,0 +1,61 @@
+<UserControl
+    x:Class="cb_podcast.Views.EpisodesDetailControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            x:Name="TitlePage"
+            Text="{x:Bind MasterMenuItem.Title, Mode=OneWay}"
+            FontSize="28" FontWeight="SemiLight" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" VerticalAlignment="Center"
+            Margin="0,0,12,7"/>
+
+        <ScrollViewer
+            Grid.Row="1"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollMode="Auto">
+
+            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your detail content.-->
+            <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+
+                <!--Replate FontIcon and TextBlock with your detail content.-->
+                <TextBlock
+                    Text="{x:Bind MasterMenuItem.Summary, Mode=OneWay}"
+                    FontSize="16" FontWeight="Normal" TextTrimming="None" TextWrapping="Wrap"
+                    VerticalAlignment="Top" HorizontalAlignment="Left" Margin="12,12,12,12"/>
+                <MediaPlayerElement
+                    Source="{x:Bind MasterMenuItem.MediaFile, Mode=OneWay}"
+                    AutoPlay="False"
+                    AreTransportControlsEnabled="True"/>
+            </Grid>
+        </ScrollViewer>
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePage.Margin" Value="48,0,12,7"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>
